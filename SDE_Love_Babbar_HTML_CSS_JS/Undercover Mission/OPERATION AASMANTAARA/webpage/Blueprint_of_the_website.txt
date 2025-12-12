@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+      META INFORMATION
+      - Title of website
+      - Favicon
+      - SEO keywords
+      - Links for fonts and icons
+  </head>
+
+  <body>
+
+      HEADER SECTION
+      - Logo placeholder (future)
+      - Navigation menu with sections
+
+      HERO SECTION
+      - Fullscreen background visual or banner
+      - Strong tagline + CTA button
+
+      ABOUT SECTION
+      - Who is Abhipsa? Personality + story
+
+      GALLERY / PORTFOLIO SECTION
+      - Grid of outfit photos
+      - Categories (Traditional | Western | Casual | Party)
+
+      FEATURED REELS SECTION
+      - Embedded Instagram reels OR YouTube videos
+
+      TESTIMONIALS / LOVE NOTES SECTION (Optional emotional punch)
+      - Reaction from audience
+      - A special message from you?
+
+      CONTACT / CONNECT SECTION
+      - Instagram | YouTube | Email links
+      - Follow / Subscribe buttons
+
+      FOOTER SECTION
+      - Credits
+      - “Made with 💛 by Abhay”
+      - Social links again
+
+  </body>
+
+</html>

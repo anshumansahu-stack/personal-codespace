@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELARA VOGUE | The Collection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --text-main: #1a1a1a;
+            --text-muted: #4a4a4a;
+            --accent-bronze: #8C7B6C;
+            --accent-gold: #d4af37;
+            --jewel-bg: #111111;
+            
+            --font-display: 'Cinzel', serif;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Lato', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fallback color if image doesn't load */
+            background-color: #e6e2dd; 
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- BACKGROUND FILLER --- */
+        
+        /* 1. The Fixed Editorial Image */
+        .bg-editorial {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* A subtle, high-fashion background texture image */
+            background-image: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2670&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15; /* Keeps it subtle so it doesn't fight the content */
+            filter: grayscale(100%) contrast(120%);
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* 2. The Noise/Grain Texture (For that expensive paper feel) */
+        .bg-grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.4;
+            z-index: -1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+        }
+
+        /* --- The Curtain Intro (Same as before) --- */
+        .intro-curtain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 9999;
+            display: flex;
+            pointer-events: none;
+        }
+
+        .curtain-panel {
+            width: 50%;
+            height: 100%;
+            background: #080808; /* Darker intro */
+            position: relative;
+            transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .intro-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #d4af37;
+            font-family: var(--font-display);
+            font-size: 4rem;
+            letter-spacing: 0.5em;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+            white-space: nowrap;
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        body.loaded .curtain-panel:first-child { transform: translateX(-100%); }
+        body.loaded .curtain-panel:last-child { transform: translateX(100%); }
+        body.loaded .intro-logo { opacity: 0; }
+
+        /* --- Navigation --- */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            opacity: 0;
+            animation: fadeIn 1s 1.5s forwards;
+        }
+
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            letter-spacing: 0.2em;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        
+        .nav-links {
+            background: rgba(255,255,255,0.7); /* Glass backdrop */
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-left: 2rem;
+            transition: color 0.3s;
+            font-weight: 600;
+        }
+        .nav-links a:hover { color: var(--accent-bronze); }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 0 2rem;
+            opacity: 0;
+            animation: fadeIn 1.5s 1.8s forwards;
+            position: relative;
+        }
+
+        .hero-img-container {
+            width: 320px;
+            height: 450px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border-radius: 200px 200px 0 0;
+            border: 8px solid rgba(255,255,255,0.5); /* Frame */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: sepia(10%) contrast(90%);
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: 4.5rem;
+            font-weight: 400;
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            /* Text gradient */
+            background: -webkit-linear-gradient(45deg, #1a1a1a, #555);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- General Layout --- */
+        section { padding: 8rem 2rem; }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            /* Glass card for title */
+            background: rgba(255,255,255,0.6);
+            backdrop-filter: blur(5px);
+            padding: 2rem 4rem;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .section-title span {
+            display: block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: var(--accent-bronze);
+            margin-bottom: 1rem;
+        }
+        .section-title h2 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 400;
+        }
+
+        /* --- Apparel (Grid) --- */
+        .apparel-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .lookbook-item {
+            position: relative;
+            background: #fff;
+            padding: 1rem; /* Photo frame effect */
+            box-shadow: 0 15px 30px rgba(0,0,0,0.05);
+            transition: transform 0.5s ease;
+        }
+
+        .lookbook-item:nth-child(even) { margin-top: 8rem; }
+        .lookbook-item:hover { transform: translateY(-10px); }
+
+        .lookbook-img {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .lookbook-meta {
+            padding-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        /* --- Jewelry (Contrast Section) --- */
+        .jewelry-section {
+            background-color: var(--jewel-bg);
+            color: #fff;
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+            /* Remove fixed bg for this section */
+            z-index: 10; 
+        }
+
+        /* Add a Gold Glow behind jewelry */
+        .jewelry-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, rgba(0,0,0,0) 70%);
+            pointer-events: none;
+        }
+
+        .jewelry-section .section-title {
+            background: rgba(255,255,255,0.05);
+            border-color: rgba(255,255,255,0.1);
+        }
+        .jewelry-section .section-title h2 { color: #f0f0f0; }
+
+        .jewel-showcase {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .jewel-img-box {
+            width: 45%;
+            height: 70vh;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .jewel-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s ease;
+        }
+        .jewel-img-box:hover img { transform: scale(1.05); }
+
+        .jewel-details { width: 35%; }
+        .jewel-details h3 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            font-style: italic;
+        }
+        .jewel-details p {
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+
+        /* --- Media Wall --- */
+        .media-wall {
+            max-width: 1400px;
+            margin: 0 auto;
+            /* Glass container for reels */
+            background: rgba(255,255,255,0.5);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .reels-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .reel-card {
+            aspect-ratio: 9 / 16;
+            background: #000;
+            border-radius: 4px; /* Sharper corners for elegance */
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .reel-card:hover { transform: translateY(-10px) scale(1.02); }
+
+        .reel-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        .reel-card:hover .reel-thumb { opacity: 0.5; }
+
+        .play-icon {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px; height: 60px;
+            border: 1px solid #fff;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; opacity: 0;
+            transition: all 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .reel-card:hover .play-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+
+        /* --- Footer --- */
+        .link-footer {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 8rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .link-footer .section-title {
+            background: transparent;
+            border: none;
+        }
+        .link-footer .section-title h2 { color: #fff; }
+
+        .link-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-width: 500px;
+            margin: 0 auto 5rem auto;
+        }
+
+        .link-btn {
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            text-decoration: none;
+            color: #fff;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            font-size: 0.9rem;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .link-btn:hover {
+            background: #fff;
+            color: #000;
+            border-color: #fff;
+        }
+
+        /* --- Animation Utilities --- */
+        .reveal { opacity: 0; transform: translateY(60px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .apparel-grid { grid-template-columns: 1fr; gap: 4rem; }
+            .lookbook-item:nth-child(even) { margin-top: 0; }
+            .jewel-showcase { flex-direction: column; }
+            .jewel-img-box, .jewel-details { width: 100%; }
+            .reels-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+            .section-title { width: 100%; padding: 2rem 1rem; }
+            .media-wall { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BACKGROUND LAYERS -->
+    <div class="bg-editorial"></div>
+    <div class="bg-grain"></div>
+
+    <!-- Intro Animation -->
+    <div class="intro-curtain">
+        <div class="curtain-panel"></div>
+        <div class="intro-logo">ELARA VOGUE</div>
+        <div class="curtain-panel"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-brand">ELARA.</a>
+        <div class="nav-links">
+            <a href="#apparel">Collection</a>
+            <a href="#jewelry">Atelier</a>
+            <a href="#media">Films</a>
+            <a href="#links">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-img-container">
+            <img src="https://images.unsplash.com/photo-1548142342-b3f02e6b1e6d?q=80&w=2572&auto=format&fit=crop" alt="Elara Portrait" class="hero-img">
+        </div>
+        <h1>Effortless<br>Opulence</h1>
+        <p style="letter-spacing: 0.4em; text-transform: uppercase; font-size: 0.8rem; margin-top: 1rem;">The 2025 Retrospective</p>
+    </header>
+
+    <!-- Apparel Collection -->
+    <section id="apparel">
+        <div class="section-title reveal">
+            <span>Volume I</span>
+            <h2>The Lookbook</h2>
+        </div>
+
+        <div class="apparel-grid">
+            <!-- Item 1 -->
+            <div class="lookbook-item reveal">
+                <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=2583&auto=format&fit=crop" alt="Dress 1" class="lookbook-img">
+                <div class="lookbook-meta">
+                    <span>Evening Silk</span>
+                    <span>Ref. 082</span>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="lookbook-item reveal">
+                <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?q=80&w=2524&auto=format&fit=crop" alt="Dress 2" class="lookbook-img">
+                <div class="lookbook-meta">
+                    <span>Urban Trench</span>
+                    <span>Ref. 091</span>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="lookbook-item reveal">
+                <img src="https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?q=80&w=2670&auto=format&fit=crop" alt="Dress 3" class="lookbook-img">
+                <div class="lookbook-meta">
+                    <span>Haute Lace</span>
+                    <span>Ref. 114</span>
+                </div>
+            </div>
+
+             <!-- Item 4 -->
+             <div class="lookbook-item reveal">
+                <img src="https://images.unsplash.com/photo-1583846711818-b6d83065074e?q=80&w=2574&auto=format&fit=crop" alt="Dress 4" class="lookbook-img">
+                <div class="lookbook-meta">
+                    <span>Modern Avant</span>
+                    <span>Ref. 120</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jewelry Collection -->
+    <section id="jewelry" class="jewelry-section">
+        <div class="section-title reveal">
+            <span>Volume II</span>
+            <h2>Rare Artifacts</h2>
+        </div>
+
+        <div class="jewel-showcase">
+            <div class="jewel-img-box reveal">
+                <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?q=80&w=2535&auto=format&fit=crop" alt="Jewelry">
+            </div>
+            <div class="jewel-details reveal">
+                <h3>The Golden Hour</h3>
+                <p>Designed for the moments that matter. Our latest jewelry curation focuses on raw, organic shapes molded into timeless elegance. Imperfection is the truest form of beauty.</p>
+                <div style="width: 50px; height: 1px; background: #d4af37; margin-bottom: 2rem;"></div>
+                <p style="color: #fff; letter-spacing: 0.2em; font-size: 0.8rem; text-transform: uppercase; cursor: pointer;">Explore Atelier &rarr;</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Media Wall -->
+    <section id="media">
+        <div class="section-title reveal">
+            <span>Motion</span>
+            <h2>Cinematic Diaries</h2>
+        </div>
+
+        <div class="media-wall reveal">
+            <div class="reels-grid">
+                <!-- Reel 1 -->
+                <div class="reel-card">
+                    <img src="https://images.unsplash.com/photo-1534126416832-7984db30d724?q=80&w=2574&auto=format&fit=crop" class="reel-thumb" alt="Reel Cover">
+                    <div class="play-icon">▶</div>
+                </div>
+
+                <!-- Reel 2 -->
+                <div class="reel-card" style="transition-delay: 0.1s">
+                    <img src="https://images.unsplash.com/photo-1502989642968-94f48498105e?q=80&w=2574&auto=format&fit=crop" class="reel-thumb" alt="Shorts Cover">
+                    <div class="play-icon">▶</div>
+                </div>
+
+                <!-- Reel 3 -->
+                <div class="reel-card" style="transition-delay: 0.2s">
+                    <img src="https://images.unsplash.com/photo-1485230946019-4d29c838d673?q=80&w=2670&auto=format&fit=crop" class="reel-thumb" alt="Reel Cover">
+                    <div class="play-icon">▶</div>
+                </div>
+
+                <!-- Reel 4 -->
+                <div class="reel-card" style="transition-delay: 0.3s">
+                    <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2670&auto=format&fit=crop" class="reel-thumb" alt="Shorts Cover">
+                    <div class="play-icon">▶</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Link Hub -->
+    <footer id="links" class="link-footer">
+        <div class="section-title reveal">
+            <h2>Connect</h2>
+        </div>
+        
+        <div class="link-list reveal">
+            <a href="#" class="link-btn">Instagram (@Elara)</a>
+            <a href="#" class="link-btn">YouTube Channel</a>
+            <a href="#" class="link-btn">Shop The Collection</a>
+            <a href="#" class="link-btn">Business Inquiries</a>
+        </div>
+
+        <p style="opacity: 0.5; letter-spacing: 0.2em; font-size: 0.7rem;">&copy; 2025 ELARA MAISON. PARIS.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Intro Animation
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 800);
+
+            // 2. Scroll Reveal Observer
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+
+            // 3. Smooth Scroll
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

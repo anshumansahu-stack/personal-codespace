@@ -1,0 +1,6 @@
+convert the number to binary
+the count will be from right hand side, 0,1,2...till 31 at left.
+the ith bit is set or not, we loop till that number. 
+if 1--> set, 0 otherwise.
+Time complexity=O(n)+O(i), where n is the number of bits in binary and i is the number of set bits input.
+bit manipulation can achieve this in constant time complexity.

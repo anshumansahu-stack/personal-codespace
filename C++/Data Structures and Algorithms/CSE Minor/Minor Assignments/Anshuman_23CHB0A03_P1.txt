@@ -1,0 +1,236 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+struct student
+{
+    string studentName;
+    string RollNo;
+    string Department;
+
+    // Combine student data into a single string
+    string Combine() const
+    {
+        return studentName + "\t" + RollNo + "\t" + Department;
+    }
+
+    // Set student data and return the combined string
+    string setData()
+    {
+        cout << "Enter the name of the student:" << endl;
+        cin.ignore(); // Clear input buffer
+        getline(cin, studentName);
+        cout << "Enter the corresponding roll number:" << endl;
+        cin >> RollNo;
+        cout << "Enter the corresponding Department:" << endl;
+        cin >> Department;
+        return Combine();
+    }
+};
+
+// Stack class to manage student data
+class stack
+{
+private:
+    string s[10000]; // Stack declaration in the form of an array
+    int topIndex;    // Index of the top element in the stack
+    int maxlim;      // Maximum limit of the stack
+
+public:
+    stack() : topIndex(-1), maxlim(0) {} // Constructor
+
+    // Set the maximum limit of the stack
+    void setmax()
+    {
+        cout << "Enter the number of students in the Institute:" << endl;
+        cin >> maxlim;
+        cout << endl;
+    }
+
+    // Return the maximum limit of the stack
+    int maxlimit() const
+    {
+        return maxlim;
+    }
+
+    // Check if the stack is full
+    bool isFull() const
+    {
+        return (topIndex >= maxlim - 1);
+    }
+
+    // Check if the stack is empty
+    bool isEmpty() const
+    {
+        return (topIndex == -1);
+    }
+
+    // Push a new element onto the stack
+    bool push(const string &v)
+    {
+        if (isFull())
+        {
+            cout << "The Stack is Full!" << endl;
+            return false;
+        }
+        else
+        {
+            s[++topIndex] = v;
+            return true;
+        }
+    }
+
+    // Get the top element of the stack
+    string top() const
+    {
+        return isEmpty() ? "Empty Stack" : s[topIndex];
+    }
+
+    // Pop the top element from the stack
+    string pop()
+    {
+        if (isEmpty())
+        {
+            cout << "Stack is Empty!" << endl;
+            return "Error";
+        }
+        else
+        {
+            return s[topIndex--];
+        }
+    }
+
+    // Print all elements of the stack
+    void print() const
+    {
+        cout << "Printing all elements of stack:" << endl;
+        cout << "Name\tRollNo\tDepartment" << endl;
+        for (int i = topIndex; i >= 0; i--)
+        {
+            cout << s[i] << endl;
+        }
+    }
+
+    // Display the menu and handle user choices
+    void menu()
+    {
+        int response = 0;
+        while (response != 7)
+        {
+            cout << "1: pop element(s)" << endl;
+            cout << "2: read top element" << endl;
+            cout << "3: push element(s)" << endl;
+            cout << "4: print all elements" << endl;
+            cout << "5: isEmpty" << endl;
+            cout << "6: isFull" << endl;
+            cout << "7: Exit" << endl;
+            cin >> response;
+
+            switch (response)
+            {
+            case 1:
+            {
+                int n;
+                cout << "Enter the number of elements to pop " << endl;
+                cin >> n;
+                if (n > count())
+                {
+                    cout << "Not enough elements in stack!" << endl;
+                }
+                else
+                {
+                    cout << "Name\tRollNo\tDepartment" << endl;
+                    for (int i = 0; i < n; i++)
+                    {
+                        cout << pop() << endl;
+                    }
+                    cout << "These are the students that popped." << endl;
+                }
+            }
+            break;
+            case 2:
+            {
+                cout << "The topmost Student in the stack is:" << endl;
+                cout << "Name\tRollNo\tDepartment" << endl;
+                cout << top() << endl;
+            }
+            break;
+            case 3:
+            {
+                int n;
+                cout << "Enter the number of Students to push " << endl;
+                cin >> n;
+                for (int i = 0; i < n; i++)
+                {
+                    if (isFull())
+                    {
+                        cout << "Stack is Full!" << endl;
+                        break;
+                    }
+                    else
+                    {
+                        student tempStudent;
+                        push(tempStudent.setData());
+                    }
+                }
+            }
+            break;
+            case 4:
+            {
+                print();
+            }
+            break;
+            case 5:
+            {
+                cout << (isEmpty() ? "The Stack is Empty!" : "The stack is not Empty!") << endl;
+            }
+            break;
+            case 6:
+            {
+                cout << (isFull() ? "The Stack is Full!" : "The stack is not Full!") << endl;
+            }
+            break;
+            case 7:
+            {
+                cout << "OK Thank you!" << endl;
+            }
+            break;
+            default:
+            {
+                cout << "Enter a valid response!" << endl;
+            }
+            break;
+            }
+        }
+    }
+
+    // Return the number of elements in the stack
+    int count() const
+    {
+        return topIndex + 1;
+    }
+};
+
+int main()
+{
+    stack Strstk;
+    Strstk.setmax(); // Initialize the number of students
+    int numberOfStudents = Strstk.maxlimit();
+
+    for (int i = 0; i < numberOfStudents; i++)
+    {
+        string data = student().setData();
+        Strstk.push(data);
+        char response;
+        cout << "Another Student? (y/n): ";
+        cin >> response;
+        if (response != 'y')
+        {
+            cout << "You have entered " << Strstk.count() << " elements." << endl;
+            break;
+        }
+    }
+
+    Strstk.menu();
+    return 0;
+}

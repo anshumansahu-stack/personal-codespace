@@ -1,0 +1,5 @@
+To Learn New Topic:
+Dynamic Arrays
+Strings using character arrays and string header file
+Vectors header file
+exit(0) and exit(1) and other exit types

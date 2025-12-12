@@ -1,0 +1,33 @@
+// Sorting
+    sort(nums.begin(), nums.end());
+    // Forward Iteration
+    for (int i = 1; i < nums.size(); i++)
+    {
+        if (nums[i] - nums[i - 1] > 1 && nums[i - 1] + 1 > 0)
+        { // Sequence starts leaving numbers, make sure they are positive
+            cout << "Loop condition valid!" << endl;
+            return nums[i - 1] + 1;
+        }
+    }
+    // If all the numbers dont leave out any steps, we make sure to check the least value in nums first.
+    int k = nums[0] - 1;
+    cout << k << endl;
+    if (k > 0)
+    {
+        cout << "Begin termination condition valid!" << endl;
+        return k;
+    }
+    else
+    { // Then we check the greatest value.
+        int n = nums.size();
+        k = nums[n-1] + 1;
+        if (k > 0)
+        {
+            cout << "End Termination condition valid!" << endl;
+            return k;
+        }
+        else
+        {
+            return -1; // Improbable case
+        }
+    }

@@ -1,0 +1,1 @@
+print("Tum Chutiya Ho")

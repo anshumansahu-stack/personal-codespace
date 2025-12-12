@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maison de L'Élégance | Haute Couture</title>
+    
+    <!-- Fonts: Playfair Display for headings (Luxury feel) & Lato for body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <!-- CSS Reset & Styles -->
+    <style>
+        :root {
+            --bg-color: #F9F8F6; /* Soft Off-White/Cream */
+            --text-color: #1A1A1A; /* Soft Black */
+            --accent-color: #8C7B65; /* Muted Gold/Bronze */
+            --padding-standard: 6vw;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, .brand-font {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem var(--padding-standard);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference; /* Exotic touch: text changes color based on background */
+            color: white;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .menu-items span {
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .menu-items span::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0%;
+            height: 1px;
+            background: white;
+            transition: width 0.4s ease;
+        }
+
+        .menu-items span:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 var(--padding-standard);
+        }
+
+        .hero h1 {
+            font-size: 8vw;
+            line-height: 1;
+            margin-bottom: 2rem;
+            overflow: hidden; /* For text reveal animation */
+        }
+
+        .hero h1 span {
+            display: block; /* Allows transform on lines */
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            color: #555;
+            margin-top: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 3rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            opacity: 0.6;
+        }
+
+        /* --- Gallery / Content Grid --- */
+        .content-section {
+            padding: 10vh var(--padding-standard);
+        }
+
+        /* The "Exotic" Image Container */
+        .image-block {
+            position: relative;
+            margin-bottom: 20vh;
+            width: 100%;
+            height: 80vh; /* Tall, majestic images */
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Staggered Grid Layout (Patek Style) */
+        .image-block.small {
+            width: 45%;
+            height: 60vh;
+        }
+        
+        .image-block.right {
+            margin-left: auto;
+        }
+
+        .image-block.left {
+            margin-right: auto;
+        }
+
+        /* The actual image wrapper for the reveal effect */
+        .img-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            transform-origin: center;
+            will-change: transform; /* Performance optimization */
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 120%; /* Taller than container for parallax */
+            object-fit: cover;
+            position: absolute;
+            top: -10%;
+            left: 0;
+            will-change: transform;
+        }
+
+        /* Text Overlays */
+        .block-text {
+            position: absolute;
+            z-index: 10;
+            color: white;
+            text-align: center;
+            mix-blend-mode: difference;
+        }
+
+        .block-text h2 {
+            font-size: 3rem;
+            font-style: italic;
+        }
+
+        .block-text p {
+            font-family: 'Lato', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+            color: #F9F8F6;
+            text-align: center;
+        }
+        
+        footer h2 {
+            font-size: 4vw;
+        }
+
+        /* --- Loader --- */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #F9F8F6;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader">
+        <h2 class="brand-font">MAISON</h2>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">Maison</div>
+        <div class="menu-items">
+            <span>Collections</span>
+            <span>Maison</span>
+            <span>Boutiques</span>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="smooth-wrapper">
+        <div id="smooth-content">
+            
+            <section class="hero">
+                <h1 class="brand-font">
+                    <span>TIMLESS</span>
+                    <span>AESTHETICS</span>
+                </h1>
+                <p>Curating the exotic intersection of tradition and modern fluidity.</p>
+                <div class="scroll-indicator">Scroll to Explore</div>
+            </section>
+
+            <section class="content-section">
+                
+                <!-- Full Width Image -->
+                <div class="image-block" data-speed="0.9">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2070&auto=format&fit=crop" alt="High Fashion Model">
+                    </div>
+                    <div class="block-text">
+                        <p>Collection 2025</p>
+                        <h2>The Gentle Breeze</h2>
+                    </div>
+                </div>
+
+                <!-- Right Aligned Smaller -->
+                <div class="image-block small right" data-speed="1.1">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=987&auto=format&fit=crop" alt="Luxury Fabric Detail">
+                    </div>
+                    <div class="block-text">
+                        <h2>Silk & Stone</h2>
+                    </div>
+                </div>
+
+                <!-- Left Aligned Smaller -->
+                <div class="image-block small left" data-speed="1.2">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=988&auto=format&fit=crop" alt="Abstract Fashion">
+                    </div>
+                    <div class="block-text">
+                        <h2>Noir Désir</h2>
+                    </div>
+                </div>
+
+                 <!-- Full Width Image -->
+                 <div class="image-block" data-speed="1">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=2070&auto=format&fit=crop" alt="Runway Model">
+                    </div>
+                    <div class="block-text">
+                        <p>Haute Couture</p>
+                        <h2>Eternal Motion</h2>
+                    </div>
+                </div>
+
+            </section>
+
+            <footer>
+                <h2>Begin Your Journey</h2>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- Scripts: GSAP & Lenis (Smooth Scroll) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // 1. Initialize Lenis (The Luxury Smooth Scroll)
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential easing
+            direction: 'vertical',
+            gestureDirection: 'vertical',
+            smooth: true,
+            mouseMultiplier: 1,
+            smoothTouch: false,
+            touchMultiplier: 2,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // Integrate Lenis with GSAP ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Intro Animation (Loader)
+        const tl = gsap.timeline();
+
+        tl.to(".loader h2", {
+            opacity: 0,
+            duration: 1,
+            delay: 1
+        })
+        .to(".loader", {
+            height: 0,
+            duration: 1,
+            ease: "power4.inOut"
+        })
+        .from(".hero h1 span", {
+            y: 200,
+            duration: 1.5,
+            stagger: 0.1,
+            ease: "power4.out"
+        })
+        .to(".hero p", {
+            opacity: 1,
+            y: 0,
+            duration: 1
+        }, "-=1");
+
+        // 3. The "Exotic" Scroll Effect: Skewing Images based on Velocity
+        // This adds that liquid/jelly feel when you scroll fast
+        let proxy = { skew: 0 },
+            skewSetter = gsap.quickSetter(".img-wrapper", "skewY", "deg"), // fast setter
+            clamp = gsap.utils.clamp(-20, 20); // limits the skew angle
+
+        ScrollTrigger.create({
+            onUpdate: (self) => {
+                let skew = clamp(self.getVelocity() / -300);
+                // If velocity is high, skew increases. If stopped, returns to 0
+                if (Math.abs(skew) > Math.abs(proxy.skew)) {
+                    proxy.skew = skew;
+                    gsap.to(proxy, {
+                        skew: 0,
+                        duration: 0.8,
+                        ease: "power3",
+                        overwrite: true,
+                        onUpdate: () => skewSetter(proxy.skew)
+                    });
+                }
+            }
+        });
+
+        // 4. Image Transitions & Parallax
+        const images = document.querySelectorAll('.image-block');
+
+        images.forEach((block) => {
+            let img = block.querySelector('img');
+            let speed = block.dataset.speed || 1;
+
+            // Reveal Animation: Scale down slightly as it enters view
+            gsap.from(block.querySelector('.img-wrapper'), {
+                scale: 1.2,
+                opacity: 0.8,
+                duration: 1.5,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top 90%", // starts when top of image hits 90% of viewport
+                    end: "top 20%",
+                    scrub: false, // animate once naturally
+                }
+            });
+
+            // Parallax Effect: Move image inside container at different speed
+            gsap.to(img, {
+                y: "20%", // Move image down by 20%
+                ease: "none",
+                scrollTrigger: {
+                    trigger: block,
+                    start: "top bottom", // start when top of container hits bottom of screen
+                    end: "bottom top",   // end when bottom of container hits top of screen
+                    scrub: true          // link animation progress to scroll bar
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

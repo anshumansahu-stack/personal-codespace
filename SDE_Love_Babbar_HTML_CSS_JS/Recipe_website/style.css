@@ -1,0 +1,225 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+.container{
+    width: 100vw;
+    height: 100vh;
+    background-image: url("Main_Back.svg");
+    background-size: 100% 150%;
+    background-repeat: no-repeat;
+}
+/* Header styling */
+#header {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 25px 10px 10px 10px;
+}
+#Heading {
+    position: absolute;
+    left: 28vw; /* Adjust this to position it in the empty space */
+    top:20px;
+    font-size: 2.5rem;
+    color: white;
+    font-family: 'Lucida Handwriting', cursive;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+}
+#navlist{
+    display:flex;
+    justify-content:end;
+    padding-right: 30px;
+    list-style-type:none;
+}
+.tags{
+    text-decoration: none;
+    color: white;
+    font-size: 1.2rem;
+    padding-left:20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+}
+.tags:hover{
+    color: rgb(65, 171, 252);
+    transform: scale(1.1);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+/* Main Styling */
+main{
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 40px;
+    padding-right:100px;
+}
+/*menu Styling*/
+.menu{
+    width:900px;
+    height: 550px;
+    box-sizing:border-box;
+    display:flex;
+    flex-direction: column;
+    justify-content:space-between;
+    gap:30px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 5px solid rgb(65, 171, 252);
+    outline: 2px solid rgb(249, 246, 246);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 10px;
+    overflow-y:auto;
+    overflow-x:hidden;
+}
+/* menu-item-styling */
+/* Width and height slightly smaller than menu */
+.menu-item{
+    width:850px;
+    height:650px;
+    display:flex;
+    box-sizing:border-box;
+    /* align-items:space-between; Wrong property value assigned */
+    justify-content:center;
+    gap:80px;
+    margin-bottom:10px;
+}
+.Itemhead{
+    font-size:35px;
+    font-family: 'Playfair Display', serif;
+    color: royalblue;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.Itemhead:hover{
+    color: rgb(65, 171, 252);
+    transform: translateY(-6%) scale(1.05);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.itemdescription{
+    display:flex;
+    flex-direction:column;
+    /* padding-right:200px; */
+    gap:10px;
+    font-size:16px;
+    width:400px;
+    height:300px;
+    font-family: 'EB Garamond',serif;
+    color: rgb(33, 33, 33);
+    margin-bottom: 10px;
+}
+.itemdescription ul{
+    list-style-type:none;
+}
+.description{
+    font-size:18px;
+    font-weight:400;
+}
+.ingredient_items{
+    font-weight:400;
+}
+.imagecontainer{
+    width:450px;
+    height:450px;
+    display:flex;
+    justify-content:start;
+    align-items:center;
+    /* border: 3px solid rgba(0,0,0,0.7); */
+}
+.recipepic{
+    justify-self:center;
+    width: 350px;
+    height: 350px;
+    box-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+    border-radius: 15px;
+}
+.recipepic:hover{
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.cost{
+    font-family: "Germania One", serif;
+    color:rgba(7, 148, 125, 0.805);
+    font-size: 40px;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.cost:hover{
+    color: rgb(7, 200, 150);
+    transform: translateY(-6%);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+footer{
+    color: azure;
+    font-size: 15px;
+    text-align: right; 
+    padding: 20px;       /* Add some spacing */
+    position: absolute;  /* Or fixed, depending on your needs */
+    bottom: 0;
+    width: 100%;
+}
+/* Desktop (Current - default) */
+
+/* Tablet */
+@media screen and (max-width: 1023px) {
+    #header{
+        height:100px;
+        padding: 0px 0px 0px 0px;
+        margin:0px 0px 0px 0px;
+        align-items:end;
+    }
+    .container{
+        padding: 0px 0px 0px 0px;   
+        margin:0px 0px 0px 0px;
+    }
+    #Heading{
+        left: 9vw; /* Adjust this to position it in the empty space */
+        top:40px;
+    }
+    #navlist{
+        left:70vw;
+        top:5vw;
+    }
+    .tags{
+        font-size: 0.8rem;;
+    }
+    .menu {
+        width: 700px;
+        align-items:center;
+    }
+    .menu-item {
+        width: 650px;
+        height: 1200px;
+        gap:160px;
+        flex-direction: column;
+    }
+    .imagecontainer{
+        height:350px;
+        justify-content: start;
+        align-items:start;
+    }
+    .itemdescription{
+        align-items:center;
+        width:600px;
+    }
+}
+
+/* Mobile */
+@media screen and (max-width: 767px) {
+    .menu {
+        width: 90vw;
+        height: 70vh;
+    }
+    .menu-item {
+        width: 100%;
+        flex-direction: column;
+    }
+    #Heading {
+        font-size: 1.8rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

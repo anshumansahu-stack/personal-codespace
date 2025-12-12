@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUMIÈRE | The Autumn Gala</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #080808;
+            --text-color: #e0e0e0;
+            --accent-gold: #d4af37;
+            --accent-gold-dim: #8a7020;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Montserrat', sans-serif;
+            --ease-luxury: cubic-bezier(0.19, 1, 0.22, 1); /* "Expo" ease for premium feel */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            cursor: none; /* Custom cursor */
+        }
+
+        /* --- Custom Cursor --- */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s, background 0.3s;
+            mix-blend-mode: difference;
+        }
+        .cursor.hovered {
+            width: 50px;
+            height: 50px;
+            background: rgba(212, 175, 55, 0.2);
+            border-color: transparent;
+        }
+
+        /* --- Preloader / Logo Intro --- */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 1.5s var(--ease-luxury);
+        }
+        
+        .loader-logo {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: logoReveal 2.5s forwards;
+            position: relative;
+        }
+
+        .loader-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0%;
+            height: 1px;
+            background: var(--accent-gold);
+            animation: lineExpand 1.5s 1s forwards var(--ease-luxury);
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+            opacity: 0;
+            animation: fadeIn 1s 2.8s forwards;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 1.5rem;
+            letter-spacing: 0.2em;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .menu-btn {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+            position: relative;
+        }
+
+        /* --- Hero Section --- */
+        header.hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* High fashion conceptual image */
+            background-image: url('https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=2574&auto=format&fit=crop'); 
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.6) grayscale(20%);
+            transform: scale(1.1);
+            transition: transform 10s ease-out;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            z-index: 2;
+            mix-blend-mode: overlay;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 8vw;
+            line-height: 1;
+            font-weight: 300;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1.5s var(--ease-luxury);
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            margin-top: 2rem;
+            color: #fff;
+            opacity: 0;
+            transition: all 1.5s 0.2s var(--ease-luxury);
+        }
+
+        /* --- Sections General --- */
+        section {
+            padding: 8rem 4rem;
+        }
+
+        .text-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s var(--ease-luxury);
+        }
+        .text-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Philosophy Section --- */
+        .philosophy {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .philo-text h2 {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 2rem;
+            font-weight: 400;
+        }
+        
+        .philo-text p {
+            line-height: 1.8;
+            font-weight: 300;
+            color: #aaa;
+            font-size: 1.1rem;
+        }
+
+        .philo-img {
+            height: 600px;
+            width: 100%;
+            overflow: hidden;
+        }
+        
+        .philo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.5s var(--ease-luxury);
+        }
+
+        /* --- Collection Showcase (Parallax/Grid) --- */
+        .collection {
+            background: #0f0f0f;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+        
+        .section-header h2 {
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            background: linear-gradient(to right, #d4af37, #fdf5e6, #d4af37);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 70vh;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+            filter: grayscale(80%);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%);
+        }
+
+        .item-info {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 10;
+        }
+
+        .item-info h3 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-style: italic;
+        }
+
+        /* --- Quote Section --- */
+        .quote-section {
+            height: 60vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-attachment: fixed;
+            background-image: url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=2673&auto=format&fit=crop');
+            background-size: cover;
+            position: relative;
+        }
+        
+        .quote-overlay {
+            background: rgba(0,0,0,0.7);
+            position: absolute;
+            inset: 0;
+        }
+
+        .quote-text {
+            position: relative;
+            z-index: 2;
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            max-width: 800px;
+            line-height: 1.4;
+        }
+
+        /* --- Footer --- */
+        footer {
+            padding: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            color: var(--accent-gold);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* --- Animations Keyframes --- */
+        @keyframes logoReveal {
+            0% { opacity: 0; transform: translateY(30px) scale(0.9); }
+            40% { opacity: 1; transform: translateY(0) scale(1); }
+            80% { opacity: 1; transform: translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateY(-30px) scale(1.1); }
+        }
+
+        @keyframes lineExpand {
+            0% { width: 0%; }
+            100% { width: 60px; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 15vw; }
+            .philosophy { grid-template-columns: 1fr; }
+            .gallery { grid-template-columns: 1fr; }
+            nav { padding: 1.5rem; }
+            section { padding: 4rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+
+    <!-- Intro Loader -->
+    <div class="loader">
+        <div class="loader-logo">LUMIÈRE</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="nav-logo hover-trigger">LUMIÈRE</a>
+        <div class="menu-btn hover-trigger">Menu</div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Elegance is<br>Eternal</h1>
+            <p class="hero-subtitle">The 2025 Autumn Collection</p>
+        </div>
+    </header>
+
+    <!-- Philosophy -->
+    <section class="philosophy">
+        <div class="philo-img text-reveal">
+            <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=2576&auto=format&fit=crop" alt="Fashion Detail">
+        </div>
+        <div class="philo-text text-reveal">
+            <h2>The Art of the Stitch</h2>
+            <p>True luxury is not just seen, it is felt. At LUMIÈRE, we believe in the silent poetry of craftsmanship. Inspired by the golden hour of the Parisian autumn, our new collection merges architectural silhouettes with fluid, organic materials.</p>
+            <br>
+            <p>Every piece tells a story of time, patience, and the relentless pursuit of perfection. This is not just apparel; it is wearable art designed for the modern muse.</p>
+        </div>
+    </section>
+
+    <!-- Collection Showcase -->
+    <section class="collection">
+        <div class="section-header text-reveal">
+            <h2>The Runway</h2>
+        </div>
+        
+        <div class="gallery">
+            <div class="gallery-item text-reveal hover-trigger">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=2620&auto=format&fit=crop" alt="Model 1">
+                <div class="item-info">
+                    <h3>Velvet Noir</h3>
+                </div>
+            </div>
+            <div class="gallery-item text-reveal hover-trigger" style="transition-delay: 0.1s">
+                <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=2670&auto=format&fit=crop" alt="Model 2">
+                <div class="item-info">
+                    <h3>Silk Aurelia</h3>
+                </div>
+            </div>
+            <div class="gallery-item text-reveal hover-trigger" style="transition-delay: 0.2s">
+                <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=2574&auto=format&fit=crop" alt="Model 3">
+                <div class="item-info">
+                    <h3>Gilded Coat</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Parallax -->
+    <section class="quote-section">
+        <div class="quote-overlay"></div>
+        <div class="quote-text text-reveal">
+            "Fashion fades, only style remains the same."<br>
+            <span style="font-size: 1rem; font-family: var(--font-sans); letter-spacing: 0.2em; margin-top: 1rem; display:block; color: var(--accent-gold);">COCO CHANEL</span>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-left">
+            <div class="footer-logo">LUMIÈRE</div>
+            <p>Paris • Milan • Tokyo</p>
+        </div>
+        <div class="footer-right">
+            <p>&copy; 2025 Lumière Maison. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cursor = document.querySelector('.cursor');
+            const loader = document.querySelector('.loader');
+            const heroTitle = document.querySelector('.hero-title');
+            const heroSubtitle = document.querySelector('.hero-subtitle');
+            const heroBg = document.querySelector('.hero-bg');
+
+            // --- Custom Cursor Logic ---
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+            });
+
+            const hoverTriggers = document.querySelectorAll('.hover-trigger');
+            hoverTriggers.forEach(trigger => {
+                trigger.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
+                trigger.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
+            });
+
+            // --- Loading Sequence ---
+            setTimeout(() => {
+                // Slide loader up
+                loader.style.transform = 'translateY(-100%)';
+                
+                // Animate Hero Elements after loader moves
+                setTimeout(() => {
+                    heroTitle.style.opacity = '1';
+                    heroTitle.style.transform = 'translateY(0)';
+                    
+                    heroSubtitle.style.opacity = '1';
+                    
+                    // Start slow zoom of background
+                    heroBg.style.transform = 'scale(1)';
+                }, 800);
+            }, 3000); // Wait for logo animation
+
+            // --- Intersection Observer for Scroll Animations ---
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: stop observing once visible
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.text-reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>

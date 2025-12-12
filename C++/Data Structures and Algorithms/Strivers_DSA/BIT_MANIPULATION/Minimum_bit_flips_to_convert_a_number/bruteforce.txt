@@ -1,0 +1,3 @@
+Convert to binary, Iterate through Each bit in parallel.
+O(log(input_size)+(binary_size))=Time Complexity
+no Space Complexity

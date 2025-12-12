@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend>Personal Information:</legend>
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name">
+            <label for="Email">Email:</label>
+            <input type="text" id="Email" name="Email">
+            <label for="Phone">Phone:</label>
+            <input type="text" id="Phone" name="Phone">
+            <label for="Date">Date:</label>
+            <input type="date" id="Date" name="Date">
+            Gender
+            <label for="radio1">Male</label><input type="radio" id="radio1" name="Male">
+            <label for="radio2">Female</label><input type="radio" id="radio2" name="Female">
+            <label for="Country">Country</label>
+            <select name="Country" id="Country">
+                <option value="" selected disabled hidden>-- Select a Country --</option>
+                <option value="India">India</option>
+                <option value="United States">United States</option>
+                <option value="Pakistan">Pakistan</option>
+                <option value="Iran">Iran</option>
+                <option value="North Korea">North Korea</option>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Address:</legend>
+            <label for="Street">Street</label><input type="text" id="Street" name="Street">
+            <label for="City">City</label><input type="text" id="City" name="City">
+            <label for="State">State</label><input type="text" id="State" name="State">
+            <label for="Zip Code">Zip Code</label><input type="text" id="Zip Code" name="Zip Code">
+        </fieldset>
+        <fieldset>
+            <legend>Other Information</legend>
+            <textarea name="Comments" id="Comments" cols="30" rows="10" placeholder="Write how you feel..." ></textarea>
+            <label for="Terms">I hereby accept the terms and conditions</label>
+            <input type="checkbox" name="Terms" id="Terms">
+        </fieldset>
+        <input type="Submit" value="Submit" id="Submit" name="Submit">
+    </form>
+</body>
+</html>
