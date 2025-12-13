@@ -1,0 +1,157 @@
+{
+  "__type__": "PrimitiveResult",
+  "__value__": {
+    "pub_results": [
+      {
+        "__type__": "SamplerPubResult",
+        "__value__": {
+          "data": {
+            "__type__": "DataBin",
+            "__value__": {
+              "field_names": [
+                "c"
+              ],
+              "field_types": [
+                "<class 'qiskit.primitives.containers.bit_array.BitArray'>"
+              ],
+              "shape": [],
+              "fields": {
+                "c": {
+                  "__type__": "BitArray",
+                  "__value__": {
+                    "array": {
+                      "__type__": "ndarray",
+                      "__value__": "eJyb7BfqGxDJyFDGUK2eklqcXKRupaBeU2qorqOgnpZfVFKUmBefX5SSChJ3S8wpTgWKF2ckFqQC+RqGBkYmOgqGmjoKtQrkAS4G6gKmQWzaKBgFdANDJekCAEN2G/E="
+                    },
+                    "num_bits": 2
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "circuit_metadata": {}
+          }
+        }
+      },
+      {
+        "__type__": "SamplerPubResult",
+        "__value__": {
+          "data": {
+            "__type__": "DataBin",
+            "__value__": {
+              "field_names": [
+                "c"
+              ],
+              "field_types": [
+                "<class 'qiskit.primitives.containers.bit_array.BitArray'>"
+              ],
+              "shape": [],
+              "fields": {
+                "c": {
+                  "__type__": "BitArray",
+                  "__value__": {
+                    "array": {
+                      "__type__": "ndarray",
+                      "__value__": "eJyb7BfqGxDJyFDGUK2eklqcXKRupaBeU2qorqOgnpZfVFKUmBefX5SSChJ3S8wpTgWKF2ckFqQC+RqGBkYmOgqGmjoKtQrkAS4GZMDEMApGEBiI6GYcADtpCsj00GAJBwBCwxvy"
+                    },
+                    "num_bits": 2
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "circuit_metadata": {}
+          }
+        }
+      },
+      {
+        "__type__": "SamplerPubResult",
+        "__value__": {
+          "data": {
+            "__type__": "DataBin",
+            "__value__": {
+              "field_names": [
+                "c"
+              ],
+              "field_types": [
+                "<class 'qiskit.primitives.containers.bit_array.BitArray'>"
+              ],
+              "shape": [],
+              "fields": {
+                "c": {
+                  "__type__": "BitArray",
+                  "__value__": {
+                    "array": {
+                      "__type__": "ndarray",
+                      "__value__": "eJyb7BfqGxDJyFDGUK2eklqcXKRupaBeU2qorqOgnpZfVFKUmBefX5SSChJ3S8wpTgWKF2ckFqQC+RqGBkYmOgqGmjoKtQrkAS5GIGBgxAVwy+BQRZwGZigmrJc48+CG4tdEgmFwLXj1MOOUYUBi4FZF2CAGJCcQEU1k+JB0AHUQYW8hOZwZuwwzphBOo5hxqMJ0BxEBTthGmDwDklKsBhOOHjR3EWcvjIlpJwO6KkKm4DaKkREAIx4f4w=="
+                    },
+                    "num_bits": 2
+                  }
+                }
+              }
+            }
+          },
+          "metadata": {
+            "circuit_metadata": {}
+          }
+        }
+      }
+    ],
+    "metadata": {
+      "execution": {
+        "execution_spans": {
+          "__type__": "ExecutionSpans",
+          "__value__": {
+            "spans": [
+              {
+                "__type__": "DoubleSliceSpan",
+                "__value__": {
+                  "start": {
+                    "__type__": "datetime",
+                    "__value__": "2025-12-05T14:09:38.367697"
+                  },
+                  "stop": {
+                    "__type__": "datetime",
+                    "__value__": "2025-12-05T14:09:40.154841"
+                  },
+                  "data_slices": {
+                    "0": [
+                      [
+                        1024
+                      ],
+                      0,
+                      1,
+                      0,
+                      1024
+                    ],
+                    "1": [
+                      [
+                        1024
+                      ],
+                      0,
+                      1,
+                      0,
+                      1024
+                    ],
+                    "2": [
+                      [
+                        1024
+                      ],
+                      0,
+                      1,
+                      0,
+                      1024
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "version": 2
+    }
+  }
+}
