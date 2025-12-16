@@ -6,7 +6,7 @@
 .container{
     width: 100vw;
     height: 100vh;
-    background-image: url("Main_Back.svg");
+    background-image: url("images/Main_Back.svg");
     background-size: 100% 150%;
     background-repeat: no-repeat;
 }
