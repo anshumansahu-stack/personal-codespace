@@ -1,0 +1,51 @@
+*{
+    margin:0px;
+    border:0px;
+    padding:0px;
+    box-sizing:border-box;
+}
+.container{
+    width:100rem;
+    height:100rem;
+    background-color: greenyellow;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.card{
+    box-sizing:border-box;
+    background-image: url("images/gradient-1765891170165.svg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    border-radius: 20px;
+    box-shadow: 2px 2px 6px 2px black;
+    height:450px;
+    width:250px;
+    padding:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:50px;
+    align-items:center; 
+}
+.card:hover{
+    transform: scale(1.05);
+    transition-duration: 0.3s;
+    transition-timing-function: ease-in;
+}
+.Pic{
+    border-radius:20px;
+    height:200px;
+    width:200px;
+    box-shadow: 2px 2px 6px 2px black;
+}
+#nameplate{
+    text-align:center;
+    font-family: 'Playfair Display', serif;
+    color:darkblue;
+}
+.picdesc{
+    text-align: center;
+    font-family: "Montserrat", "Sans-Serif";
+    font-size:15px;
+}
