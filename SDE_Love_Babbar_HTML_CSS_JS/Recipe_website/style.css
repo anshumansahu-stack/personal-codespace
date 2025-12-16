@@ -16,21 +16,25 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 25px 10px 10px 10px;
+    padding: 75px 10px 10px 10px;
 }
 #Heading {
     position: absolute;
-    left: 28vw; /* Adjust this to position it in the empty space */
-    top:20px;
+    left: 45vw; /* Adjust this to position it in the empty space */
+    top:25px;
     font-size: 2.5rem;
     color: white;
     font-family: 'Lucida Handwriting', cursive;
     text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
 }
+#navtags{
+    display:flex;
+    justify-content:end;
+}
 #navlist{
     display:flex;
     justify-content:end;
-    padding-right: 30px;
+    align-items:end;
     list-style-type:none;
 }
 .tags{
@@ -48,11 +52,12 @@
 }
 /* Main Styling */
 main{
+    margin-right:7vw;
     display:flex;
     align-items: center;
-    justify-content: flex-end;
-    padding-top: 40px;
-    padding-right:100px;
+    justify-content: end;
+    /* padding-top: 40px;
+    padding-right:100px; */
 }
 /*menu Styling*/
 .menu{
@@ -152,7 +157,7 @@ main{
     transform: translateY(-6%);
     transition: color 0.3s ease, transform 0.3s ease;
 }
-footer{
+#Foottext{
     color: azure;
     font-size: 15px;
     text-align: right; 
@@ -164,12 +169,25 @@ footer{
 /* Desktop (Current - default) */
 
 /* Tablet */
+@media screen and (max-width:1100px){
+    #Heading{
+        left:28vw;
+    }
+}
+/*smaller Tablet*/
 @media screen and (max-width: 1023px) {
     #header{
         height:100px;
         padding: 0px 0px 0px 0px;
         margin:0px 0px 0px 0px;
         align-items:end;
+    }
+    .Itemhead{
+        flex:1;
+        text-align: left;
+    }
+    .description{
+        width:100%;
     }
     .container{
         padding: 0px 0px 0px 0px;   
@@ -187,23 +205,35 @@ footer{
         font-size: 0.8rem;;
     }
     .menu {
-        width: 700px;
-        align-items:center;
+        gap:16vw;
+        width: 90vw;
+        align-items:start;
     }
     .menu-item {
-        width: 650px;
-        height: 1200px;
-        gap:160px;
-        flex-direction: column;
+        width: 100%;
+        height: auto;
+        gap:20px;
+        flex-direction: row;
+        align-items:flex-start;
     }
     .imagecontainer{
-        height:350px;
+        height:250px;
+        width:250px;
+        flex-shrink:0;
+        justify-content: center;
+        align-items:center;
+        margin-top:150px;
+    }
+    .recipepic{
+        height:250px;
+        width:250px;
         justify-content: start;
         align-items:start;
     }
     .itemdescription{
-        align-items:center;
-        width:600px;
+        align-items:start;
+        flex:1;
+        width:auto;
     }
 }
 
@@ -217,9 +247,27 @@ footer{
         width: 100%;
         flex-direction: column;
     }
+    .itemdescription{
+        align-items:center;
+        flex:1;
+        width:auto;
+    }
+    .imagecontainer{
+        margin-top:0px;
+        width:100%;
+    }
+    .menu{
+        height:550px;
+    }
     #Heading {
         font-size: 1.8rem;
         left: 50%;
+        text-align:center;
+        width:100%;
         transform: translate(-50%, -50%);
+    }
+    #navlist{
+        padding-bottom:10px;
+        padding-right: 5px;
     }
 }
